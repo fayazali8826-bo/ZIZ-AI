@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white text-gray-900 antialiased; }
+  ::selection { @apply bg-brand-500/20 text-brand-700; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-400; }
+}
+
+/* ── APP (dark) ─────────────────────────────────────────────────── */
+.app-shell {
+  @apply bg-navy-950 text-slate-100;
+  ::-webkit-scrollbar-thumb { @apply bg-navy-700; }
+}
+
+/* ── BUTTONS ────────────────────────────────────────────────────── */
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-brand-500 hover:bg-brand-600 text-white shadow-sm hover:shadow-brand-500/25 hover:shadow-lg; }
+  .btn-secondary { @apply btn bg-gray-100 hover:bg-gray-200 text-gray-700; }
+  .btn-outline { @apply btn border border-gray-200 hover:border-brand-300 hover:bg-brand-50 text-gray-700 hover:text-brand-600; }
+  .btn-ghost { @apply btn hover:bg-gray-100 text-gray-600 hover:text-gray-900; }
+  .btn-danger { @apply btn bg-red-500 hover:bg-red-600 text-white; }
+  .btn-sm { @apply text-sm px-3 py-1.5; }
+  .btn-md { @apply text-sm px-4 py-2; }
+  .btn-lg { @apply text-base px-6 py-3; }
+  .btn-xl { @apply text-lg px-8 py-4 font-semibold; }
+
+  /* App-specific buttons (dark mode) */
+  .app-btn-primary { @apply inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all; }
+  .app-btn-ghost { @apply inline-flex items-center gap-2 border border-navy-700 hover:border-brand-500/40 text-slate-400 hover:text-slate-200 text-sm px-3 py-1.5 rounded-lg transition-all; }
+  .app-btn-success { @apply inline-flex items-center gap-2 bg-accent-400 hover:bg-accent-500 text-navy-950 text-sm font-bold px-4 py-2 rounded-lg transition-all; }
+
+  /* ── INPUTS ─────────────────────────────────────────────────── */
+  .input { @apply w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-400 transition-all; }
+  .app-input { @apply w-full bg-navy-800 border border-navy-700 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-brand-500/30 focus:border-brand-500/50 transition-all; }
+
+  /* ── CARDS ──────────────────────────────────────────────────── */
+  .card { @apply bg-white border border-gray-100 rounded-xl shadow-sm; }
+  .card-hover { @apply hover:border-brand-200 hover:shadow-md transition-all duration-200; }
+  .app-card { @apply bg-navy-900 border border-navy-700 rounded-xl; }
+
+  /* ── BADGE / TAG ────────────────────────────────────────────── */
+  .badge { @apply inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full; }
+  .badge-blue   { @apply badge bg-brand-50 text-brand-700 border border-brand-100; }
+  .badge-green  { @apply badge bg-emerald-50 text-emerald-700 border border-emerald-100; }
+  .badge-amber  { @apply badge bg-amber-50 text-amber-700 border border-amber-100; }
+  .badge-red    { @apply badge bg-red-50 text-red-700 border border-red-100; }
+  .badge-gray   { @apply badge bg-gray-100 text-gray-600 border border-gray-200; }
+
+  /* App badges (dark) */
+  .app-badge-blue   { @apply inline-flex items-center text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-brand-500/10 text-brand-300 border border-brand-500/20; }
+  .app-badge-green  { @apply inline-flex items-center text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-accent-400/10 text-accent-400 border border-accent-400/20; }
+  .app-badge-red    { @apply inline-flex items-center text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20; }
+  .app-badge-amber  { @apply inline-flex items-center text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20; }
+
+  /* ── STATUS DOT ─────────────────────────────────────────────── */
+  .status-live  { @apply w-2 h-2 rounded-full bg-accent-400 shadow-[0_0_6px_rgba(0,229,160,0.6)]; }
+  .status-error { @apply w-2 h-2 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.6)] animate-pulse; }
+  .status-paused { @apply w-2 h-2 rounded-full bg-slate-600; }
+  .status-draft  { @apply w-2 h-2 rounded-full bg-amber-500; }
+
+  /* ── GLOWING BUTTON ─────────────────────────────────────────── */
+  .button-glow {
+    @apply inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+    padding: 1rem 2rem;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #0066cc;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-size: 1.125rem;
+  }
+
+  .button-glow:before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 8px;
+  }
+
+  .button-glow:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #0066cc;
+    left: 0;
+    top: 0;
+    border-radius: 8px;
+  }
+}
+
+/* ── GLOWING BUTTON ANIMATION ─────────────────────────────────────── */
+@keyframes glowing-button {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* ── GRADIENT TEXT ───────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #2e7dff 0%, #00e5a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── ZIZ LOGO MARK ───────────────────────────────────────────────── */
+.ziz-mark path { stroke: #2e7dff; }
+.ziz-mark circle { fill: #00e5a0; }
+
+/* ── MARKETING HERO BG ───────────────────────────────────────────── */
+.hero-grid {
+  background-image: 
+    linear-gradient(rgba(46,125,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,125,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── CANVAS DOT GRID ─────────────────────────────────────────────── */
+.canvas-grid {
+  background-image: radial-gradient(circle, rgba(30,48,96,0.5) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── CONNECTOR ICON ──────────────────────────────────────────────── */
+.connector-icon {
+  @apply w-10 h-10 rounded-xl flex items-center justify-center text-white text-xs font-bold font-mono shrink-0;
+}
