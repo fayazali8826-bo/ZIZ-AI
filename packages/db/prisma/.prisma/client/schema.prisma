@@ -1,0 +1,194 @@
+// Ziz — Complete Database Schema
+// PostgreSQL via Railway
+
+generator client {
+  provider = "prisma-client-js"
+  output   = ".prisma/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+// ── USERS & AUTH ────────────────────────────────────────────────────
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String?
+  occupation     String?
+  company        String?
+  hashedPassword String?
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Email Verification
+  verificationToken   String?   @unique
+  verificationExpires DateTime?
+
+  // Password Reset
+  resetToken   String?   @unique
+  resetExpires DateTime?
+
+  // Billing
+  stripeCustomerId     String?   @unique
+  plan                 Plan      @default(FREE)
+  planExpiresAt        DateTime?
+  stripeSubscriptionId String?   @unique
+
+  // Usage
+  runsThisMonth Int      @default(0)
+  runsResetAt   DateTime @default(now())
+
+  // Relations
+  workflows    Workflow[]
+  executions   Execution[]
+  credentials  Credential[]
+  chatSessions ChatSession[]
+  apiKeys      ApiKey[]
+
+  @@map("users")
+}
+
+enum Plan {
+  FREE
+  PRO
+  BUSINESS
+}
+
+// ── WORKFLOWS ───────────────────────────────────────────────────────
+
+model Workflow {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String
+  description String?
+  status      WorkflowStatus @default(DRAFT)
+  definition  Json // WorkflowDefinition
+
+  triggerType String?
+  webhookPath String? @unique
+
+  runCount   Int       @default(0)
+  errorCount Int       @default(0)
+  lastRunAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  executions Execution[]
+
+  @@index([userId])
+  @@index([webhookPath])
+  @@map("workflows")
+}
+
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+// ── EXECUTIONS ──────────────────────────────────────────────────────
+
+model Execution {
+  id         String   @id @default(cuid())
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status      ExecutionStatus @default(PENDING)
+  triggerType String?
+  triggerData Json
+  stepResults Json            @default("[]")
+
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  durationMs Int?
+
+  errorMessage String?
+  errorStep    String?
+  suggestedFix String?
+  retryCount   Int     @default(0)
+
+  @@index([workflowId])
+  @@index([userId])
+  @@index([status])
+  @@map("executions")
+}
+
+enum ExecutionStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
+// ── CREDENTIALS ─────────────────────────────────────────────────────
+
+model Credential {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name          String
+  service       String // slack, gmail, stripe, etc.
+  authType      String
+  encryptedData String // AES-256-GCM encrypted JSON
+  iv            String // initialization vector
+
+  isVerified    Boolean   @default(false)
+  lastTestedAt  DateTime?
+  lastTestError String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([service])
+  @@map("credentials")
+}
+
+// ── CHAT SESSIONS ───────────────────────────────────────────────────
+
+model ChatSession {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workflowId String?
+
+  messages Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("chat_sessions")
+}
+
+// ── API KEYS ────────────────────────────────────────────────────────
+
+model ApiKey {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  keyHash   String    @unique
+  lastUsed  DateTime?
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("api_keys")
+}

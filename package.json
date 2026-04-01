@@ -1,0 +1,19 @@
+{
+  "name": "ziz",
+  "version": "2.0.0",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "cd apps/web && npm run dev",
+    "build": "cd apps/web && npm run build",
+    "engine": "npm run worker",
+    "worker": "cd packages/engine && npm run worker",
+    "db:generate": "cd packages/db && npx prisma generate",
+    "db:push": "cd packages/db && npx prisma db push",
+    "db:migrate": "cd packages/db && npx prisma migrate deploy",
+    "db:seed": "cd packages/db && npx tsx src/seed.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

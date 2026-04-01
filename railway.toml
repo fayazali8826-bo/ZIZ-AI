@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "cd packages/engine && npm run worker"
+restartPolicyType = "always"

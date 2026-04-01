@@ -1,0 +1,22 @@
+{
+  "name": "@ziz/engine",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "worker": "tsx src/worker.ts"
+  },
+  "dependencies": {
+    "@ziz/db": "*",
+    "@ziz/shared": "*",
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "googleapis": "^140.0.1",
+    "ioredis": "^5.3.2",
+    "tsx": "^4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
