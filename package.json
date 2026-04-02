@@ -7,6 +7,7 @@
     "postinstall": "npm run db:generate",
     "dev": "cd apps/web && npm run dev",
     "build": "cd apps/web && npm run build",
+    "postinstall": "npm run db:generate",
     "engine": "npm run worker",
     "worker": "cd packages/engine && npm run worker",
     "db:generate": "cd packages/db && npx prisma generate",
