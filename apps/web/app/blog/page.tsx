@@ -34,7 +34,7 @@ export default function BlogPage() {
       title: 'How We Reduced Our Client Onboarding Time by 90%',
       excerpt: 'See how one agency used Ziz to automate their entire client onboarding process, from payment to welcome email to CRM setup.',
       date: 'March 15, 2026',
-      author: 'Sarah K.',
+      author: 'Fayaz Ali.',
       category: 'Case Study',
     },
     {
@@ -42,7 +42,7 @@ export default function BlogPage() {
       title: 'The AI Revolution in Automation: What Changed in 2026',
       excerpt: 'We explore how AI is transforming automation from configuration-heavy to description-based. What this means for business owners.',
       date: 'March 10, 2026',
-      author: 'Marcus T.',
+      author: 'Fayaz Ali.',
       category: 'Insights',
     },
     {
@@ -50,7 +50,7 @@ export default function BlogPage() {
       title: '5 Automations Every E-commerce Store Should Have',
       excerpt: 'From abandoned cart recovery to inventory management, we break down the top automations that drive revenue and save time.',
       date: 'March 5, 2026',
-      author: 'Priya M.',
+      author: 'Fayaz Ali.',
       category: 'Guide',
     },
     {
@@ -66,7 +66,7 @@ export default function BlogPage() {
       title: 'Building Your First Workflow: A Step-by-Step Tutorial',
       excerpt: 'New to Ziz? Follow along as we build a complete automation from scratch, from describing it in English to going live.',
       date: 'February 20, 2026',
-      author: 'Sarah K.',
+      author: 'Fayaz Ali',
       category: 'Tutorial',
     },
     {
@@ -74,7 +74,7 @@ export default function BlogPage() {
       title: 'Why Automation is No Longer a Luxury, But a Necessity',
       excerpt: 'In 2026, business owners who don\'t automate are falling behind. Here\'s why automation is now essential for growth.',
       date: 'February 15, 2026',
-      author: 'Marcus T.',
+      author: 'Team ziz',
       category: 'Opinion',
     },
   ]
