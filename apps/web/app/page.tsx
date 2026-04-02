@@ -3,6 +3,7 @@ import { Check, ArrowRight, Zap, Shield, Clock, Star, MapPin } from 'lucide-reac
 import { CONNECTORS, POPULAR_CONNECTORS } from '@ziz/shared/src/connectors'
 import { ChatBot } from '@/components/app/ChatBot'
 import AutomationBackground from '@/components/app/AutomationBackground'
+import NavBar from '@/components/app/NavBar'
 
 // ── ZIZ LOGO MARK ────────────────────────────────────────────────────
 function ZizMark({ size = 32 }: { size?: number }) {
@@ -17,35 +18,35 @@ function ZizMark({ size = 32 }: { size?: number }) {
 }
 
 // ── NAV ───────────────────────────────────────────────────────────────
-function Nav() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5">
-          <ZizMark size={24} />
-          <span className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">ZIZ</span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs lg:text-sm text-gray-600">
-          <Link href="#features" className="hover:text-gray-900 transition-colors">Features</Link>
-          <Link href="#connectors" className="hover:text-gray-900 transition-colors">Connectors</Link>
-          <Link href="#pricing" className="hover:text-gray-900 transition-colors">Pricing</Link>
-          <Link href="#faq" className="hover:text-gray-900 transition-colors">FAQ</Link>
-        </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link href="/login" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">
-            Sign in
-          </Link>
-          <Link href="/register" className="button-glow hidden sm:flex text-xs font-medium px-3 py-1.5 rounded-lg gap-2">
-            Start free <ArrowRight className="w-3 h-3" />
-          </Link>
-          <Link href="/register" className="button-glow sm:hidden text-xs font-medium px-3 py-1.5 rounded-lg">
-            Start
-          </Link>
-        </div>
-      </div>
-    </header>
-  )
-}
+// function Nav() {
+//   return (
+//     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+//       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+//         <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5">
+//           <ZizMark size={24} />
+//           <span className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">ZIZ</span>
+//         </Link>
+//         <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs lg:text-sm text-gray-600">
+//           <Link href="#features" className="hover:text-gray-900 transition-colors">Features</Link>
+//           <Link href="#connectors" className="hover:text-gray-900 transition-colors">Connectors</Link>
+//           <Link href="#pricing" className="hover:text-gray-900 transition-colors">Pricing</Link>
+//           <Link href="#faq" className="hover:text-gray-900 transition-colors">FAQ</Link>
+//         </nav>
+//         <div className="flex items-center gap-2 sm:gap-3">
+//           <Link href="/login" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-medium">
+//             Sign in
+//           </Link>
+//           <Link href="/register" className="button-glow hidden sm:flex text-xs font-medium px-3 py-1.5 rounded-lg gap-2">
+//             Start free <ArrowRight className="w-3 h-3" />
+//           </Link>
+//           <Link href="/register" className="button-glow sm:hidden text-xs font-medium px-3 py-1.5 rounded-lg">
+//             Start
+//           </Link>
+//         </div>
+//       </div>
+//     </header>
+//   )
+// }
 
 // ── HERO ──────────────────────────────────────────────────────────────
 function Hero() {
@@ -593,7 +594,7 @@ export default function HomePage() {
     <div className="relative w-full">
       <AutomationBackground opacity={0.6} intensity="medium" hideOnMobile={false} />
       <div className="relative z-10">
-        <Nav />
+        <NavBar />
         <main>
           <Hero />
           <SocialProof />
