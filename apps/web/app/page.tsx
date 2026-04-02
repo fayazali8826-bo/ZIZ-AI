@@ -90,11 +90,14 @@ function Hero() {
         {/* Demo Video */}
         <div className="mt-10 sm:mt-16 rounded-xl sm:rounded-2xl border border-navy-700 shadow-xl sm:shadow-2xl shadow-black/20 overflow-hidden mx-auto max-w-full">
           <video
-            className="w-full h-auto"
+           
             autoPlay
             muted
             loop
-          >
+             playsInline
+            controls={false}
+            disablePictureInPicture
+>
             <source src="/realvid.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
