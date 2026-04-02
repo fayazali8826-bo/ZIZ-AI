@@ -56,7 +56,7 @@ function RegisterForm() {
       }
 
       // Redirect to email verification
-      router.push(`/verify-email?email=${encodeURIComponent(email.toLowerCase().trim())}`)
+      router.push(`/login?registered=true`)
     } catch {
       setError('Network error. Please check your connection and try again.')
       setLoading(false)
