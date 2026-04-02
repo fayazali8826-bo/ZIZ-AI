@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 
-// Load .env from project root automatically
 const rootEnvPath = path.resolve(__dirname, '../../.env')
 if (fs.existsSync(rootEnvPath) && !process.env.DATABASE_URL) {
   const lines = fs.readFileSync(rootEnvPath, 'utf8').split('\n')
@@ -27,6 +26,10 @@ const nextConfig = {
   },
   images: {
     domains: ['avatars.githubusercontent.com'],
+  },
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname)
+    return config
   },
 }
 
