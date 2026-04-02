@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
+    "postinstall": "npm run db:generate",
     "dev": "cd apps/web && npm run dev",
     "build": "cd apps/web && npm run build",
     "engine": "npm run worker",
