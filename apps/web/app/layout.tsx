@@ -6,14 +6,21 @@ import { Providers } from './providers'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: { default: 'Ziz — Automate your business in minutes', template: '%s | Ziz' },
+  title: { default: 'Ziz Automate Everything', template: '%s | Ziz' },
+
   description: 'Build powerful automations in plain English. Connect 35+ apps. No code, no engineers, no complexity. Start free.',
   keywords: ['automation', 'no-code', 'workflow', 'zapier alternative', 'n8n alternative', 'business automation'],
+   icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     type: 'website',
     title: 'Ziz — Automate your business in minutes',
     description: 'Build powerful automations in plain English. Connect 35+ apps. No code required.',
     siteName: 'Ziz',
+    
   },
   twitter: {
     card: 'summary_large_image',
