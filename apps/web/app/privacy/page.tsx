@@ -84,7 +84,7 @@ export default function PrivacyPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
               <p className="text-gray-500 leading-relaxed">
                 If you have questions, reach out to us at{' '}
-                <a href="mailto:privacy@ziz.app" className="text-brand-600 hover:underline">privacy@ziz.app</a>
+                <a href="mailto:support@zizai.live" className="text-brand-600 hover:underline">support@ziz ai.app</a>
               </p>
             </div>
           </div>

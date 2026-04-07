@@ -1,10 +1,42 @@
 import { getServerSession } from 'next-auth'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { authOptions } from '@/lib/authOptions'
 import { prisma } from '@ziz/db'
 import { PLAN_LIMITS } from '@ziz/shared/src/types'
+import { createHash } from 'crypto'
 
-export async function requireAuth() {
+function hashApiKey(key: string): string {
+  return createHash('sha256').update(key).digest('hex')
+}
+
+export async function requireAuth(req?: NextRequest) {
+  // 1. Try API key first (for SDK users)
+  if (req) {
+    const authHeader = req.headers.get('authorization')
+    if (authHeader?.startsWith('Bearer ziz_')) {
+      const rawKey = authHeader.split(' ')[1]
+      const keyHash = hashApiKey(rawKey)
+
+      const apiKey = await prisma.apiKey.findUnique({
+        where: { keyHash },
+        include: { user: { select: { id: true, plan: true } } },
+      })
+
+      if (!apiKey) {
+        return { userId: null, plan: null, error: NextResponse.json({ error: 'Invalid API key' }, { status: 401 }) }
+      }
+
+      // Update last used timestamp
+      await prisma.apiKey.update({
+        where: { id: apiKey.id },
+        data: { lastUsed: new Date() },
+      })
+
+      return { userId: apiKey.user.id, plan: apiKey.user.plan, error: null }
+    }
+  }
+
+  // 2. Fall back to existing session auth (for web UI users)
   const session = await getServerSession(authOptions)
   if (!session?.user?.id) {
     return { userId: null, error: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) }
@@ -19,11 +51,9 @@ export async function checkUsageLimit(userId: string): Promise<{ allowed: boolea
   })
   if (!user) return { allowed: false, reason: 'User not found' }
 
-  // Reset monthly counter if needed
   const now = new Date()
   const resetAt = new Date(user.runsResetAt)
   const needsReset = now.getMonth() !== resetAt.getMonth() || now.getFullYear() !== resetAt.getFullYear()
-
   if (needsReset) {
     await prisma.user.update({
       where: { id: userId },
@@ -39,7 +69,6 @@ export async function checkUsageLimit(userId: string): Promise<{ allowed: boolea
       reason: `You've used all ${limit.runsPerMonth} automation runs this month on the ${limit.label} plan. Upgrade to run more.`,
     }
   }
-
   return { allowed: true }
 }
 

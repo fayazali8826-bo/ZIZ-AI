@@ -567,7 +567,7 @@ function Footer() {
             <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-500">
               <div><Link href="/about" className="hover:text-gray-900 transition-colors">About</Link></div>
               <div><Link href="/blog" className="hover:text-gray-900 transition-colors">Blog</Link></div>
-              <div><a href="mailto:hello@ziz.app" className="hover:text-gray-900 transition-colors">Contact</a></div>
+              <div><a href="mailto:support@zizai.live" className="hover:text-gray-900 transition-colors">Contact</a></div>
             </div>
           </div>
           <div>

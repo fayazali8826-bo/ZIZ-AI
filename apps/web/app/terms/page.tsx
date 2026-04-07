@@ -82,7 +82,7 @@ export default function TermsPage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">Contact</h2>
               <p className="text-gray-500 leading-relaxed">
-                Questions? Email us at <a href="mailto:legal@ziz.app" className="text-brand-600 hover:underline">legal@ziz.app</a>
+                Questions? Email us at <a href="mailto:support@zizai.live" className="text-brand-600 hover:underline">legal@ziz.app</a>
               </p>
             </div>
           </div>
